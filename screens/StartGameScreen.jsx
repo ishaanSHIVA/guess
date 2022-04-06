@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import {
   StyleSheet,
   View,
-  Text,
   TouchableWithoutFeedback,
   Keyboard,
   Button,
@@ -13,6 +12,9 @@ import Color from "../constants/Color";
 import Card from "../components/Card";
 import Input from "../components/Input";
 import NumberContainer from "../components/NumberContainer";
+import BodyText from "../components/BodyText";
+import TitleText from "../components/TitleText";
+import MainButton from "../components/MainButton";
 
 const StartGameScreen = ({ StartGameHandler }) => {
   const [userInput, setUserInput] = useState("");
@@ -50,9 +52,9 @@ const StartGameScreen = ({ StartGameHandler }) => {
       }}
     >
       <View style={styles.screen}>
-        <Text style={styles.text}>Start a New Game</Text>
+        <TitleText style={styles.text}>Start a New Game</TitleText>
         <Card style={styles.inputContainer}>
-          <Text style={styles.title}>Select a Number</Text>
+          <BodyText style={styles.title}>Select a Number</BodyText>
           <Input
             value={userInput}
             onChangeText={UserInputHandler}
@@ -84,13 +86,12 @@ const StartGameScreen = ({ StartGameHandler }) => {
 
         {confirmed && (
           <Card style={styles.summary}>
-            <Text>You selected</Text>
+            <BodyText>You selected</BodyText>
             <View>
               <NumberContainer>{selectedNumber}</NumberContainer>
-              <Button
-                onPress={StartGameHandler.bind(this, selectedNumber)}
-                title="START GAME"
-              />
+              <MainButton onPress={StartGameHandler.bind(this, selectedNumber)}>
+                START GAME
+              </MainButton>
             </View>
           </Card>
         )}

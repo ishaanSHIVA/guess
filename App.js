@@ -1,31 +1,38 @@
-import { StyleSheet, View  } from 'react-native';
+import { StyleSheet, View  ,Text} from 'react-native';
 import {useState,useEffect} from 'react'
+
+// Font
 import * as Font from 'expo-font';
-import {AppLoading} from 'expo'
+import AppLoading from 'expo-app-loading';
 
-
-// import SVGImg  from "./public/games-time.svg"
 import Header from './components/Header';
 import StartGameScreen from './screens/StartGameScreen';
 import GameScreen from './screens/GameScreen';
 import GameOver from './screens/GameOver';
 
-const fetchFonts = () => {
-  Font.loadAsync({
-    'playfair': require('./assets/fonts/playfair.ttf')
+
+const fetchFonts = async () => {
+  await Font.loadAsync({
+    'grape':require('./assets/fonts/grape.ttf'),
+    'playfair':require('./assets/fonts/playfair.ttf')
   })
 }
 
 
+
 export default function App() {
 
+  const [dataLoaded,setDataLoaded] = useState(false)
   const [userNumber, setUserNumber] = useState()
   const [guessRounds, setGuessRounds] = useState()
 
-  const [dataLoaded,setDataLoaded] = useState(false)
 
   if(!dataLoaded) {
-    return <AppLoading startAsync={fetchFonts}  onFinish={setDataLoaded.bind(this,true)} onError={(err)=>{console.log(err)}}/>
+    return <AppLoading  
+            startAsync={fetchFonts}
+            onFinish={() => {setDataLoaded(true);console.log('font loaded')}}
+            onError={(err) => console.log(err)}
+          />
   }
   
   
@@ -52,18 +59,20 @@ export default function App() {
     if(userNumber && guessRounds <= 0) {
       contentOutput = <GameScreen userInput={userNumber} onGameOver={GameOverHandler} />
     } else if(guessRounds > 0) {
-      contentOutput = <GameOver rounds={guessRounds} startGame={NewGame} />
+      contentOutput = <GameOver round={guessRounds} startGame={NewGame} number={userNumber}/>
     }
-
 
   
 
 
   return (
     <View style={styles.app}>
-      <Header title="Guess the title" />
 
-      {contentOutput}
+      <Header title="Guess the title" /> 
+
+
+
+       {contentOutput}
       
 
     </View> );
@@ -72,5 +81,6 @@ export default function App() {
 const styles = StyleSheet.create({
       app: {
         flex: 1,
+        
       }
 });
