@@ -6,6 +6,7 @@ import {
   Keyboard,
   Button,
   Alert,
+  Dimensions,
 } from "react-native";
 
 import Color from "../constants/Color";
@@ -67,14 +68,14 @@ const StartGameScreen = ({ StartGameHandler }) => {
           />
 
           <View style={styles.buttonContainer}>
-            <View>
+            <View style={styles.button}>
               <Button
                 title="Reset"
                 onPress={ResetUserInputHandler}
                 color={Color.accent}
               />
             </View>
-            <View>
+            <View style={styles.button}>
               <Button
                 title="Confirm"
                 onPress={ConfirmUserInputHandler}
@@ -111,15 +112,16 @@ const styles = StyleSheet.create({
     flexDirection: "row",
     width: "100%",
     justifyContent: "space-between",
-    paddingHorizontal: 15,
+    marginHorizontal: 15,
   },
   title: {
     fontSize: 20,
     marginVertical: 10,
   },
   inputContainer: {
-    width: 300,
-    maxWidth: "80%",
+    width: "80%",
+    minWidth: 300,
+    maxWidth: "95%",
     alignItems: "center",
   },
   textInput: {
@@ -129,6 +131,9 @@ const styles = StyleSheet.create({
   summary: {
     alignItems: "center",
     marginVertical: 40,
+  },
+  button: {
+    width: Dimensions.get("window").width / 3,
   },
 });
 
