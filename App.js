@@ -1,4 +1,4 @@
-import { StyleSheet, View  ,Text} from 'react-native';
+import { StyleSheet, View  ,SafeAreaView} from 'react-native';
 import {useState,useEffect} from 'react'
 
 // Font
@@ -66,7 +66,7 @@ export default function App() {
 
 
   return (
-    <View style={styles.app}>
+    <SafeAreaView style={styles.app}>
 
       <Header title="Guess the title" /> 
 
@@ -75,7 +75,7 @@ export default function App() {
        {contentOutput}
       
 
-    </View> );
+    </SafeAreaView> );
 }
 
 const styles = StyleSheet.create({
